@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#
+# install bundle on ubuntu.
 cd ~
 if [ -d .vim ] then
    mkdir ~/.vim/bundle

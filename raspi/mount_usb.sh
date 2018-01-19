@@ -1,4 +1,5 @@
 #!/bin/bash
+# mount or unmount usbstorage on raspberry pi.
 
 if [ ! -d /mnt/usbstorage ]
 then 

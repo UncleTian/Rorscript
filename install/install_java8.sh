@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# install jdk on ubuntu.
 sudo add-apt-repository ppa:webupd8team/java
 
 sudo apt update

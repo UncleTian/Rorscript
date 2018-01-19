@@ -1,5 +1,5 @@
 #!/bin/bash
-#
+# use brew install font-fira-code on mac
 brew tap caskroom/fonts
 brew cask install \
   font-fira-code \

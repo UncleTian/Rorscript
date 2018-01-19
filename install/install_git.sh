@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# install and config git on ubuntu.
 sudo apt update
 sudo apt -y install git
 
