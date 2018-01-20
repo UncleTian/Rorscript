@@ -1,7 +1,7 @@
 #!/bin/bash
 # install and config git on ubuntu.
 sudo apt update
-sudo apt -y install git
+sudo apt install git -y
 
 read -r -t 60 -p "do you want to set git config[Y/n]:" response
 response=${response,,}
