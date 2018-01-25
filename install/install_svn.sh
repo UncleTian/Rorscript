@@ -4,4 +4,4 @@ sudo add-apt-repository ppa:rabbitvcs/ppa
 
 sudo apt-get update
 
-sudo apt-get install rabbitvcs-nautilus3
+sudo apt-get install rabbitvcs-nautilus3 -y
