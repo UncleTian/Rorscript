@@ -6,15 +6,15 @@ wget -O http://download.oracle.com/otn-pub/java/jdk/9.0.4+11/c2514751926b4512b07
 
 sudo tar -zxvf jdk-9.0.4_linux-x64_bin.tar.gz -C /usr/lib/jvm
 
-sudo vim ~/.bashrc
-
 # set oracle jdk environment
-export JAVA_HOME=/usr/lib/jvm/jdk-9.0.4
-export JRE_HOME=${JAVA_HOME}/jre
-export CLASSPAHT=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
-export PATH=${JAVA_HOME}/bin:$PATH
+echo "export JAVA_HOME=/usr/lib/jvm/jdk-9.0.4" >> ~/.bashrc
+echo "export JRE_HOME=${JAVA_HOME}/jre" >> ~/.bashrc
+echo "export CLASSPAHT=.:${JAVA_HOME}/lib:${JRE_HOME}/lib" >> ~/.bashrc
+echo "export PATH=${JAVA_HOME}/bin:$PATH" >> ~/.bashrc
 
 source ~/.bashrc
+
+java --version
 
 
 
