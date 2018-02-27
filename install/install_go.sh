@@ -2,4 +2,6 @@
 
 sudo add-apt-repository ppa:longsleep/golang-backports
 sudo apt-get update
-sudo apt-get install golang-1.10-go -y
+sudo apt-get install golang-go -y
+
+go version
