@@ -2,8 +2,12 @@
 #
 # install bundle on ubuntu.
 cd ~
-if [ -d .vim ] then
-   mkdir ~/.vim/bundle
+
+if [ -d ~/.vim ]
+then
+   dir="~/.vim/bundle"
+   mkdir $dir
+   echo "make dir $dir"
 else
    mkdir -p ~/.vim/bundle
 fi
