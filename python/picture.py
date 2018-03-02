@@ -1,30 +1,30 @@
 #!/usr/bin/env python3
 
+import asyncio
 import os
+import platform
+import re
 import urllib
 from pathlib import Path
 from urllib.error import HTTPError
 from urllib.error import URLError
 from urllib.request import urlopen
+
 from bs4 import BeautifulSoup
-import re
-import asyncio
-import platform
 
 
 def which_platform():
     sysstr = platform.system()
+    home = str(Path.home())
     if sysstr == "Windows":
         return os.path.join(os.path.abspath("."), "Pictures")
     elif sysstr == "Linux":
-        home = str(Path.home())
         return home + "/Pictures/haixiuzu"
     else:
         return home + "/Pictures/haixiuzu"
 
 
 async def download(link):
-
     path = which_platform()
     if not os.path.exists(path):
         os.makedirs(path)
@@ -61,7 +61,7 @@ async def get_image(link):
         print(e)
 
 
-async def find_topic(loop, html):
+async def find_topic(html):
     bsObj = BeautifulSoup(html, "html.parser")
     tasks = [get_image(link) for link in get_topic(bsObj)]
     await asyncio.gather(*tasks)
@@ -70,7 +70,7 @@ async def find_topic(loop, html):
 def main(loop, url):
     try:
         html = urlopen(url, timeout=30)
-        loop.run_until_complete(find_topic(loop, html))
+        loop.run_until_complete(find_topic(html))
         print("fetch done!")
     except (HTTPError, URLError) as e:
         print(e)
