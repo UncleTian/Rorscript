@@ -2,7 +2,7 @@
 
 import os
 import urllib
-for pathlib import Path
+from pathlib import Path
 from urllib.error import HTTPError
 from urllib.error import URLError
 from urllib.request import urlopen
