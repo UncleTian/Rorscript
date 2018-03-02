@@ -2,6 +2,7 @@
 
 import os
 import urllib
+for pathlib import Path
 from urllib.error import HTTPError
 from urllib.error import URLError
 from urllib.request import urlopen
@@ -16,9 +17,10 @@ def which_platform():
     if sysstr == "Windows":
         return os.path.join(os.path.abspath("."), "Pictures")
     elif sysstr == "Linux":
-        return "~/Pictures/haixiuzu"
+        home = str(Path.home())
+        return home + "/Pictures/haixiuzu"
     else:
-        return "~/Pictures/haixiuzu"
+        return home + "/Pictures/haixiuzu"
 
 
 async def download(link):
