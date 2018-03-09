@@ -6,7 +6,7 @@ sudo apt install -y git
 
 read -r -t 60 -p "do you want to set git config[Y/n]:" response
 response=${response,,}
-if [ $response == "y" ] 
+if [[ $response == "y" ]] 
 then
     echo "all configuration will be set as global"
     read -r -t 60 -p "enter your user name: " username
