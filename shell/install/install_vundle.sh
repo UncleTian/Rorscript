@@ -3,7 +3,7 @@
 # install bundle on ubuntu.
 cd ~
 
-if [ -d ~/.vim ]
+if [ -d ~/.vim/ ]
 then
    dir="~/.vim/bundle"
    mkdir $dir
