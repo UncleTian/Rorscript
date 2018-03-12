@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-git clone git@github.com:vim/vim.git ~/
+git clone git@github.com:vim/vim.git ~/vim/
 
 cd ~/vim/
 
