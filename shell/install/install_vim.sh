@@ -3,7 +3,7 @@
 
 sudo apt install software-properties-common
 
-sudo apt-add-repository ppa:jonathonf/vim
+sudo add-apt-repository ppa:jonathonf/vim
 
 sudo apt update
 sudo apt install vim -y
