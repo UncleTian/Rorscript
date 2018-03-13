@@ -12,5 +12,7 @@ git clone https://github.com/Valloric/YouCompleteMe.git
 
 cd ~/.vim/bundle/YouCompleteMe
 
+git submodule update --init --recursive
+
 ./install.py --clang-completer
 ./install.py --go-completer

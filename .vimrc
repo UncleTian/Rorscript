@@ -24,7 +24,8 @@ set nowrap  "set nowrap line"
 set fileformat=unix "fileformat unix 'lf'"
 set cindent     "indenct like C"
 set autoindent
-filetype indent on 
+filetype indent on
+filetype plugin on
 set expandtab 
 set tabstop=4   "set tab size 4"
 set shiftwidth=4
@@ -89,6 +90,7 @@ Plugin 'derekwyatt/vim-fswitch'
 Plugin 'google/vim-maktaba'
 Plugin 'google/vim-codefmt'
 Plugin 'google/vim-glaive'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 call vundle#end()
 call glaive#Install()
 " Optional: Enable codefmt's default mappings on the <Leader>= prefix.
@@ -129,8 +131,8 @@ inoremap <expr> <PageDown> pumvisible() ? '\<PageDown>\<C-p>\<C-n>' : '\<PageDow
 inoremap <expr> <PageUp>   pumvisible() ? '\<PageUp>\<C-p>\<C-n>' : '\<PageUp>'
 
 "NERDTree configuration""
-map <F2> :NERDTreeToggle<CR>
-map <F2> :NERDTreeMirror<CR>
+nnoremap <F2> :NERDTreeToggle<CR>
+"map <F2> :NERDTreeMirror<CR>":
 
 let NERDTreeChDirMode=1
 let NERDTreeShowBookmarks=1
@@ -142,6 +144,19 @@ let NERDTreeShowHidden=0
 let NERDTreeHightCursorline=1
 let NERDTreeAutoCenter=1
 let NERDTreeChristmasTree=1
+
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
+
 
 "autopep8 configuration"
 let g:autopep8_disable_show_diff=1
