@@ -1,0 +1,47 @@
+# init git repository
+git init 
+
+# set a new remote
+git remote add origin https://github.com/user/repo.git
+
+# verify new remote
+git remote -v
+
+# add file changes to repository
+git add filename
+
+# add all changes to repository
+git add --all
+
+# check git log
+git log
+
+# check the last 3 commits
+git log -n 3
+
+# check the log with oneline output format
+git log --oneline
+
+# check the log with full output format
+git log --format=fuller
+
+# check the log with change full/short status
+git log --stat/--shortstat
+
+# check the log display as graph
+git log --graph
+
+# 
+git log -n 3 --oneline --shortstat --graph
+
+# check the changes status
+git status
+
+# check the changes status with short format
+git status --short
+
+# remove file/directory from staging area
+git reset HEAD test.txt ~/test/
+
+# remove current directory from staging area
+git reset HEAD .
