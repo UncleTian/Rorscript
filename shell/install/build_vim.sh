@@ -2,7 +2,9 @@
 
 sudo apt remove --purge vim vim-runtime vim-gnome vim-tiny vim-common vim-gui-common
 
-sudo apt install liblua5.1-dev luajit libluajit-5.1 python-dev libperl-dev libncurses5-dev ruby-dev
+sudo apt install liblua5.1-dev luajit libluajit-5.1 python-dev \
+                 python3-dev libperl-dev libncurses5-dev ruby-dev \
+				 libx11-dev dbus-x11
 
 git clone https://github.com/vim/vim.git ~/vim/
 
