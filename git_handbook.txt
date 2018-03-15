@@ -13,35 +13,113 @@ git add filename
 # add all changes to repository
 git add --all
 
-# check git log
+# show commit logs
 git log
 
-# check the last 3 commits
+# show the last 3 commits
 git log -n 3
 
-# check the log with oneline output format
+# show the log with oneline output format
 git log --oneline
 
-# check the log with full output format
+# show the log with full output format
 git log --format=fuller
 
-# check the log with change full/short status
+# show the log with change full/short status
 git log --stat/--shortstat
 
-# check the log display as graph
+# show the log display as graph
 git log --graph
 
-# 
+# composition usage
 git log -n 3 --oneline --shortstat --graph
 
-# check the changes status
+# show logs between date range
+git log --since='MAR 1 2018' --until='MAR 15 2018'
+
+# exclude author from logs
+git log --perl-regexp --author='^((?!excluded-author-regex).*)'
+
+# show which commit 
+git log --summary -M90% | grep -e "^ rename"
+
+# track file move history
+git log --follow file_name
+
+# show the changes status
 git status
 
-# check the changes status with short format
+# show the changes status with short format
 git status --short
 
 # remove file/directory from staging area
-git reset HEAD test.txt ~/test/
+git reset HEAD file_name file_path
 
 # remove current directory from staging area
 git reset HEAD .
+
+# reset current branch to any commit hash
+git rest --hard 39ea21a
+
+# saving current state of tracked files without commiting
+git stash
+
+# saving current state of unstaged changes to tracked files
+git stash -k
+
+# saving current state including untracked files
+git stash -u
+
+# saving current state with message
+git stash save <message>
+
+# saving current state of all files (ignored, untracked, and tracked)
+git stash -a
+
+# show list of all saved stashes
+git stash list
+
+# apply any stash without deleting from the stashed list
+git stash apply <stash@{n}>
+
+# apply last stashed state and delete it from stashed list
+git stash pop
+
+# delete all stored stashes
+git stash clear
+or
+git stash drop <stash@{n}>
+
+# grab a single file from a stash
+git checkout <stash@{n}> -- <file_path>
+or
+git checkout stash@{0} -- <file_path>
+
+# create a new branch base current branch
+git branch <branch-name>
+
+# create and switch new branch
+git checkout -b <branch-name>
+
+# switch to other branch
+git checkout <branch-name>
+
+# force switch branch and will dispose of some partial changes
+git checkout --force <branch-name>
+
+# create a branch from any commit hash
+git branch <branch-name> 38b7da45e
+
+# track upstream branch
+git branch -u origin/mybranch
+
+# delete local branch
+git branch -d <local_branchname>
+
+
+# delete remote branch
+git push origin --delete <remote_branchname>
+or
+git push origin :<remote_branchname>
+
+
