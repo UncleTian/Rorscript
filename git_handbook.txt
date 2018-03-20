@@ -116,10 +116,38 @@ git branch -u origin/mybranch
 # delete local branch
 git branch -d <local_branchname>
 
-
 # delete remote branch
 git push origin --delete <remote_branchname>
 or
 git push origin :<remote_branchname>
 
+# merge conflict use mergetool
+git mergetool
 
+# checkout our files or their files
+git checkout --ours/--theirs <file_path>
+
+# add current directory to track
+git add .
+
+# cancel merge
+git reset --merge
+
+# git merge without fastmerge
+git merge --no-ff <branchname>
+
+# show merge log
+git log --merges
+
+# show the first parent merge log
+git log --first-parent --oneline R1.0..master
+
+# show our changes without their changes
+git log MERGE_HEAD..HEAD
+or
+git diff --stat <hash> HEAD
+
+# show their changes without ours changes
+git log HEAD..MERGE_HEAD
+or
+git diff --stat <hash> MERGE_HEAD
