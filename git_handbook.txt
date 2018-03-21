@@ -151,3 +151,50 @@ git diff --stat <hash> HEAD
 git log HEAD..MERGE_HEAD
 or
 git diff --stat <hash> MERGE_HEAD
+
+# merge activity branches to master use git rebase
+git rebase master
+
+# merge remote branches to master use pull --rebase
+git pull --rebase
+
+# merge activity branches to master use git rebase
+# --continue  continue previous rebase
+# --abort     cancel current rebase
+# --skip      skip conflict changes
+git rebase master --continue/--abort/--skip
+
+# merge master to other branch
+git rebase master --onto <branchname>
+
+# remove remote tag
+git remote rm <tag_name>
+
+# fetch changes from other library
+git fetch <tag_name>
+
+# create a tag on master branch
+git tag <tag_name> master -m "new tag"
+
+# push branch's tag to library
+git push origin <tag_name>
+or
+git push --tags
+
+# pull changes from remote branches without tags
+git pull --no-tags
+
+# list tags
+git tag -l
+
+# print tags hashcode
+git show-ref --tags
+
+# show log with tag
+git log --decorate
+
+# check commit in which tags
+git tag --contains <hash> 
+or
+git log --oneline <tag_name> | grep "${comment}"
+
