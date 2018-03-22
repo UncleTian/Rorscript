@@ -27,9 +27,9 @@ set autoindent
 filetype indent on
 filetype plugin on
 set expandtab 
-set tabstop=4   "set tab size 4"
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2   "set tab size 2"
+set shiftwidth=2
+set softtabstop=2
 
 set showmatch   "show match parentheses"
 set scrolloff=5     "5 rows from the top and bottom"
@@ -53,6 +53,7 @@ set autoread
 set cursorline      " highlight current line"
 set cursorcolumn        "highlight current column"
 set nu
+set cmdheight=5
 
 
 "press F5 run python"
@@ -92,9 +93,8 @@ Plugin 'google/vim-codefmt'
 Plugin 'google/vim-glaive'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 call vundle#end()
+
 call glaive#Install()
-" Optional: Enable codefmt's default mappings on the <Leader>= prefix.
-Glaive codefmt plugin[mappings]
 Glaive codefmt google_java_executable="java -jar /path/to/google-java-format-VERSION-all-deps.jar"
 
 
