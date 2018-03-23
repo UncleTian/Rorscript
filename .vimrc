@@ -54,6 +54,32 @@ set cursorline      " highlight current line"
 set cursorcolumn        "highlight current column"
 set nu
 set cmdheight=5
+" remap U to <C-r>"
+nnoremap U <C-r>
+
+" define AutoSetFileHeader "
+function! AutoSetFileHeader()
+		if &filetype == 'sh'
+				call setline(1, "\#!/bin/bash")
+	  elseif &filetype == 'python'
+			  call setline(1, "\#!/usr/bin/env python3")
+				call append(1, "\# encoding: utf-8")
+	  endif 
+
+		normal G
+		normal o
+		normal o
+endfunction 
+autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHeader()"
+
+" auto remove space when save file "
+function! <SID>StripTrailingSpaces()
+	let l = line(".")
+	let c = col(".")
+	%s/\s\+$//e
+	call cursor(l, c)
+endfunction
+autocmd FileType c,cpp,java,go,javascript,pupept,python,rust,xml,yml,perl autocmd BufWritePre <buffer> :call <SID>StripTrailingSpaces()
 
 
 "press F5 run python"
@@ -114,22 +140,10 @@ let g:ycm_enable_diagnostic_signs=1
 let g:ycm_enable_diagnostic_highlighting=0
 let g:ycm_always_populate_location_list=1
 
-
-nmap <F2> :YcmCompleter GoToDefinition<CR>
-nmap <F3> :YcmCompleter GoToDeclaration<CR>
-nmap <F4> :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-
-inoremap <expr> <Esc>      pumvisible() ? '\<C-e>' : '\<Esc>'  
-inoremap <expr> <CR>       pumvisible() ? '\<C-y>' : '\<CR>'     
-inoremap <expr> <Down>     pumvisible() ? '\<C-n>' : '\<Down>'
-inoremap <expr> <Up>       pumvisible() ? '\<C-p>' : '\<Up>'
-inoremap <expr> <PageDown> pumvisible() ? '\<PageDown>\<C-p>\<C-n>' : '\<PageDown>'
-inoremap <expr> <PageUp>   pumvisible() ? '\<PageUp>\<C-p>\<C-n>' : '\<PageUp>'
+nmap <F3> :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 "NERDTree configuration""
-nnoremap <F1> :NERDTreeToggle<CR>
+nnoremap <F2> :NERDTreeToggle<CR>
 "map <F2> :NERDTreeMirror<CR>":
 
 let NERDTreeChDirMode=1
