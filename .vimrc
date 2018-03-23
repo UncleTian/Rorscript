@@ -84,10 +84,8 @@ Plugin 'tell-k/vim-autopep8'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'wakatime/vim-wakatime'
 Plugin 'skielbasa/vim-material-monokai'
-Plugin 'vim-syntastic/syntastic'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'derekwyatt/vim-fswitch'
 Plugin 'google/vim-maktaba'
 Plugin 'google/vim-codefmt'
 Plugin 'google/vim-glaive'
@@ -102,8 +100,7 @@ Glaive codefmt google_java_executable="java -jar /path/to/google-java-format-VER
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf=0
 set completeopt=longest,menu
-let g:ycm_path_to_python_interpreter='/usr/bin/python'
-let g:ycm_python_binary_path='/usr/local/bin/python3'
+let g:ycm_python_binary_path='python'
 let g:ycm_seed_identifiers_with_syntax=1
 let g:ycm_complete_in_comments=1
 let g:ycm_collect_identifiers_from_comments_and_strings = 0

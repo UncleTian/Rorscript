@@ -36,15 +36,18 @@ def make_buffer_by_thread_name(buffer_dir, file_path):
     thread_names = get_thread_names(file_path)
     offset = 1
     for thread_name in thread_names:
+        print(thread_name)
         buffer_name = "buffer" + str(offset)
         offset += 1
         buffer_file_name = buffer_name
-
+        rex_pattern = "(\["+thread_name+"\])"
+        tmp_rex = re.compile(rex_pattern)
         with open(os.path.join(buffer_dir, buffer_file_name), "w") as buffer_file:
             with open(file_path, "r") as log_file:
                 lines = log_file.readlines()
                 for line in lines:
-                    if thread_name in line:
+                    matcher = tmp_rex.search(line)
+                    if result_is_not_none(matcher):
                         buffer_file.write(line)
 
 
