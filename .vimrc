@@ -103,32 +103,33 @@ set completeopt=longest,menu
 let g:ycm_python_binary_path='python'
 let g:ycm_seed_identifiers_with_syntax=1
 let g:ycm_complete_in_comments=1
-let g:ycm_collect_identifiers_from_comments_and_strings = 0
+let g:ycm_collect_identifiers_from_tags_files=1
+let g:ycm_collect_identifiers_from_comments_and_strings=0
 let g:ycm_min_num_of_chars_for_completion=2
 let g:ycm_autoclose_preview_window_after_completion=1
 let g:ycm_cache_omnifunc=0
-let g:ycm_complete_in_strings = 1
+let g:ycm_complete_in_strings=1
+let g:ycm_key_invoke_completion='<C-Space>'
+let g:ycm_enable_diagnostic_signs=1
+let g:ycm_enable_diagnostic_highlighting=0
+let g:ycm_always_populate_location_list=1
 
-"syntastic configuration"
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+nmap <F2> :YcmCompleter GoToDefinition<CR>
+nmap <F3> :YcmCompleter GoToDeclaration<CR>
+nmap <F4> :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
-inoremap <expr> <CR>       pumvisible() ? '<C-y>' : '<CR>'     
+inoremap <expr> <Esc>      pumvisible() ? '\<C-e>' : '\<Esc>'  
+inoremap <expr> <CR>       pumvisible() ? '\<C-y>' : '\<CR>'     
 inoremap <expr> <Down>     pumvisible() ? '\<C-n>' : '\<Down>'
 inoremap <expr> <Up>       pumvisible() ? '\<C-p>' : '\<Up>'
 inoremap <expr> <PageDown> pumvisible() ? '\<PageDown>\<C-p>\<C-n>' : '\<PageDown>'
 inoremap <expr> <PageUp>   pumvisible() ? '\<PageUp>\<C-p>\<C-n>' : '\<PageUp>'
 
 "NERDTree configuration""
-nnoremap <F2> :NERDTreeToggle<CR>
+nnoremap <F1> :NERDTreeToggle<CR>
 "map <F2> :NERDTreeMirror<CR>":
 
 let NERDTreeChDirMode=1
@@ -159,10 +160,7 @@ let g:NERDTreeIndicatorMapCustom = {
 let g:autopep8_disable_show_diff=1
 let g:autopep8_max_line_length=79
 
-
 let mapleader=','
-
-map <F4> <leader>ci <CR>
 
 "material-monokai configuration"
 let g:materialmonokai_subtle_spell=1
@@ -177,7 +175,7 @@ nmap <silent> <Leader>i <Plug>IndentGuidesToggle
 "vim-fswitch configuration"
 nmap <silent> <Leader>sw :FSHere<cr>
 
-"google format"
+"google format configuration"
 augroup autoformat_settings
   autocmd FileType bzl AutoFormatBuffer buildifier
   autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
