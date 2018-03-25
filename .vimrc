@@ -137,7 +137,7 @@ let g:ycm_cache_omnifunc=0
 let g:ycm_complete_in_strings=1
 let g:ycm_key_invoke_completion='<C-Space>'
 let g:ycm_enable_diagnostic_signs=1
-let g:ycm_enable_diagnostic_highlighting=0
+let g:ycm_enable_diagnostic_highlighting=1
 let g:ycm_always_populate_location_list=1
 
 nmap <F3> :YcmCompleter GoToDefinitionElseDeclaration<CR>
@@ -185,9 +185,6 @@ let g:indent_guides_enable_on_vim_startup=1
 let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
 nmap <silent> <Leader>i <Plug>IndentGuidesToggle
-
-"vim-fswitch configuration"
-nmap <silent> <Leader>sw :FSHere<cr>
 
 "google format configuration"
 augroup autoformat_settings
