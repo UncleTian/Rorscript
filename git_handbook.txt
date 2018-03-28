@@ -114,12 +114,12 @@ git branch <branch-name> 38b7da45e
 git branch -u origin/mybranch
 
 # delete local branch
-git branch -d <local_branchname>
+git branch -d <local_branch_name>
 
 # delete remote branch
-git push origin --delete <remote_branchname>
+git push origin --delete <remote_branch_name>
 or
-git push origin :<remote_branchname>
+git push origin :<remote_branch_name>
 
 # merge conflict use mergetool
 git mergetool
@@ -134,7 +134,7 @@ git add .
 git reset --merge
 
 # git merge without fastmerge
-git merge --no-ff <branchname>
+git merge --no-ff <branch_name>
 
 # show merge log
 git log --merges
@@ -165,7 +165,7 @@ git pull --rebase
 git rebase master --continue/--abort/--skip
 
 # merge master to other branch
-git rebase master --onto <branchname>
+git rebase master --onto <branch_name>
 
 # remove remote tag
 git remote rm <tag_name>
@@ -197,4 +197,20 @@ git log --decorate
 git tag --contains <hash> 
 or
 git log --oneline <tag_name> | grep "${comment}"
+
+# track local branch history
+git log --walk-reflogs <branch_name>
+
+# ignore some of the already-versioned files
+git update-index --assume-unchanged <file_path>
+
+# cancel ignore some of the already-versioned files
+git update-index --no-assume-unchanged <file_path>
+
+# check the file modification content
+git diff <file_path>
+
+# check continuity text file modification content
+git diff --word-diff <file_path>
+
 

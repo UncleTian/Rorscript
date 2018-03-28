@@ -15,7 +15,7 @@ then
     git config --global user.email $email
     read -r -t 60 -p "enter your core editor: " editor
     git config --global core.editor $editor
-
+		git config --global core.autocrlf auto
     git config -l
 fi
 
