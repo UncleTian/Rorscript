@@ -14,5 +14,4 @@ cd ~/.vim/bundle/YouCompleteMe
 
 git submodule update --init --recursive
 
-./install.py --clang-completer
-./install.py --go-completer
+./install.py --clang-completer --go-completer
