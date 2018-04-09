@@ -6,7 +6,7 @@ sudo apt-get install -y apt-transport-https
 
 wget -q https://packagecloud.io/gpg.key -O - | sudo apt-key add -
 
-echo 'deb https://packagecloud.io/Hypriot/Schatzkiste/debian/ wheezy main' | sudo tee /etc/apt/sources.list.d/hypriot.list
+echo 'deb https://packagecloud.io/Hypriot/Schatzkiste/raspbian jessie main' | sudo tee /etc/apt/sources.list.d/hypriot.list
 
 sudo apt-get update
 
