@@ -60,10 +60,10 @@ today=$(date +%F)
 app=markitclear-app-$branch-$revision
 #
 #
-for ((i = 0; i <5; i ++))
+for ((i = 0; i < 5; i ++))
 do
 	install_new 
-	if grep 'Complete' log-$branch-$revision-$today.log
+	if tail -1 log-$branch-$revision-$today.log | grep 'Complete!'
 	then
 		echo "Install succeed!"
 		break 
@@ -110,6 +110,7 @@ then
 	restart
 fi
 #
+y
 #
 end=`date +%s`
 runtime=$((end-start))
