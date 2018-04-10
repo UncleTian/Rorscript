@@ -11,7 +11,7 @@ function dbupgrade {
 #
 function restart {
 	sudo /sbin/service markitclear stop
-	declare -a arrary=("workflow.jar" "connectivity.jar" "dcl_app.jar" "recon_app.jar")
+	declare -a arrary=("workflow.jar" "connectivity.jar" "dcl-app.jar" "recon_app.jar")
 	for app1 in "${arrary[@]}"
 	do
 		pid=$(ps -ef | grep $app1 | grep -v grep | awk '{print $2}')
@@ -23,17 +23,6 @@ function restart {
 	done
 	sudo /sbin/service markitclear start
 }
-
-function install_new {
-	echo "Clean old dependencies..."
-	echo 
-	sudo yum clean all
-	echo 
-	echo "Start install $app, please waiting... "
-	echo 
-	sudo yum -y install $app > log-$branch-$revision-$today.log
-}
-#
 #
 echo "========================================>"
 #
@@ -62,7 +51,14 @@ app=markitclear-app-$branch-$revision
 #
 for ((i = 0; i < 5; i ++))
 do
-	install_new 
+	echo "Clean old dependencies..."
+	echo 
+	sudo yum clean all
+	echo 
+	echo "Start install $app, please waiting... "
+	echo 
+	sudo yum -y install $app > log-$branch-$revision-$today.log
+
 	if tail -1 log-$branch-$revision-$today.log | grep 'Complete!'
 	then
 		echo "Install succeed!"
