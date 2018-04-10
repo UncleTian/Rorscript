@@ -106,7 +106,6 @@ then
 	restart
 fi
 #
-y
 #
 end=`date +%s`
 runtime=$((end-start))

@@ -116,6 +116,7 @@ Plugin 'google/vim-maktaba'
 Plugin 'google/vim-codefmt'
 Plugin 'google/vim-glaive'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'Vimjas/vim-python-pep8-indent'
 call vundle#end()
 
 call glaive#Install()
