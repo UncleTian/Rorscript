@@ -2,20 +2,35 @@
 
 echo 'Installing'
 
-sudo apt-get install -y apt-transport-https
+sudo apt-get update
 
-wget -q https://packagecloud.io/gpg.key -O - | sudo apt-key add -
+sudo apt-get install \
+	apt-transport-https \
+	ca-certificates \
+	curl \
+	gnupg2 \
+	lsb-release \
+	software-properties-common -y
 
-echo 'deb https://packagecloud.io/Hypriot/Schatzkiste/raspbian jessie main' | sudo tee /etc/apt/sources.list.d/hypriot.list
+curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/raspbian/gpg | sudo apt-key add -
+
+echo "deb [arch=armhf] https://mirrors.ustc.edu.cn/docker-ce/linux/raspbian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/hypriot.list
 
 sudo apt-get update
 
-sudo apt-get install -y docker-hypriot
+sudo apt-get install docker-ce -y
 
 sudo systemctl enable docker
+sudo systemctl start docker
 
 echo 'Verifying your docker installation'
 
 docker version
 
-sudo usermod -aG docker pi
+sudo groupadd docker
+
+sh -c "sudo usermod -aG docker $USER"
+
+docker run arm32v7/hello-world
+
+
