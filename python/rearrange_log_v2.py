@@ -8,7 +8,7 @@ def result_is_not_none(matcher):
     return matcher is not None and matcher.groups()
 
 
-def merge_buffer(buffer_dir, combined_file_path):
+def merge_buffers(buffer_dir, combined_file_path):
     buffer_files = os.listdir(buffer_dir)
     buffer_files.sort(key=natural_keys)
     size = len(buffer_files)
@@ -32,35 +32,54 @@ def natural_keys(text):
     return [atoi(c) for c in re.split(r'(\d+)', text)]
 
 
+def save_to_buffer(buffer_file_path, content):
+    if os.path.exists(buffer_file_path):
+        append_write = "a"
+    else:
+        append_write = "w"
+        with open(buffer_file_path, append_write) as buffer_file:
+            buffer_file.write(content)
+
+
 def make_buffer_by_thread_name(buffer_dir, file_path):
-    thread_names = get_thread_names(file_path)
-    offset = 1
-    for thread_name in thread_names:
-        print(thread_name)
-        buffer_name = "buffer" + str(offset)
-        offset += 1
-        buffer_file_name = buffer_name
-        rex_pattern = "(\["+thread_name+"\])"
-        tmp_rex = re.compile(rex_pattern)
-        with open(os.path.join(buffer_dir, buffer_file_name), "w") as buffer_file:
-            with open(file_path, "r") as log_file:
-                lines = log_file.readlines()
-                for line in lines:
-                    matcher = tmp_rex.search(line)
-                    if result_is_not_none(matcher):
-                        buffer_file.write(line)
+    thread_buffer_dict = get_thread_names(file_path)
+    not_match = False
+    with open(file_path, "r") as log_file:
+        lines = log_file.readlines()
+        for line in lines:
+            for key, value in thread_buffer_dict.items():
+                print(key)
+                buffer_file_name = value
+                rex_pattern = "(\["+key+"\])"
+                tmp_rex = re.compile(rex_pattern)
+                buffer_file_path = os.path.join(
+                    buffer_dir, buffer_file_name)
+                matcher = tmp_rex.search(line)
+                if result_is_not_none(matcher):
+                    save_to_buffer(buffer_file_path, line)
+                    not_match = False
+                    break
+                else:
+                    not_match = True
+            if not_match:
+                file_path = os.path.join(buffer_dir, "buffer"
+                                         + str(len(thread_buffer_dict)))
+                save_to_buffer(file_path, line)
 
 
 def get_thread_names(file_path):
     thread_name_rex = re.compile(r"([\d:.]+)\s\[([\w\d\-/\s]+)\]")
-    tmp_list = []
+    tmp_list = {}
+    offset = 1
     with open(file_path, "r") as log_file:
         for line in log_file:
             matcher = thread_name_rex.search(line)
             if result_is_not_none(matcher):
                 thread_name = matcher.group(2)
                 if thread_name not in tmp_list:
-                    tmp_list.append(thread_name)
+                    buffer_name = "buffer" + str(offset)
+                    tmp_list[thread_name] = buffer_name
+                    offset += 1
     return tmp_list
 
 
@@ -76,18 +95,20 @@ def remove_buffer_dir(buffer_dir):
 
 
 def rearrange(current_dir):
-    log_files = [file for file in os.listdir(current_dir) if ".log" in file and "arranged" not in file]
+    log_files = [file for file in os.listdir(current_dir) if ".log" in file
+                 and "arranged" not in file]
     for file_name in log_files:
         print("rearrange log file: " + file_name)
         buffer_dir = os.path.join(current_dir, "buffer")
         make_buffer_dir(buffer_dir)
-        combined_file_path = os.path.join(os.path.abspath("."), "arranged_" + file_name)
+        combined_file_path = os.path.join(
+            os.path.abspath("."), "arranged_" + file_name)
         if os.path.exists(combined_file_path):
             os.remove(combined_file_path)
         file_path = os.path.join(current_dir, file_name)
         make_buffer_by_thread_name(buffer_dir, file_path)
-        merge_buffer(buffer_dir, combined_file_path)
-        remove_buffer_dir(buffer_dir)
+        merge_buffers(buffer_dir, combined_file_path)
+        # remove_buffer_dir(buffer_dir)
 
 
 def main():
