@@ -37,8 +37,8 @@ def save_to_buffer(buffer_file_path, content):
         append_write = "a"
     else:
         append_write = "w"
-        with open(buffer_file_path, append_write) as buffer_file:
-            buffer_file.write(content)
+    with open(buffer_file_path, append_write) as buffer_file:
+        buffer_file.write(content)
 
 
 def make_buffer_by_thread_name(buffer_dir, file_path):
