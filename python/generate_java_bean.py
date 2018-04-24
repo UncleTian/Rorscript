@@ -64,7 +64,7 @@ def get_java_bean_set(source_dir):
     return java_bean_set
 
 
-def generate_xml(java_bean_set):
+def generate_bean_xml(java_bean_set):
     # Configure one attribute with set()
     beans = Element("beans")
 
@@ -82,11 +82,34 @@ def generate_xml(java_bean_set):
                 property.set("ref", value)
 
     print(prettify(beans))
+    return prettify(beans)
+
+
+def generate_list_bean_xml(java_bean_set):
+    # Configure one attribute with set()
+    beans = Element("beans")
+
+    comment = Comment("Generated for Python")
+    beans.append(comment)
+
+    bean = SubElement(beans, "map")
+    for i in java_bean_set:
+
+        entry = SubElement(bean, "entry")
+        entry.set("key", i.ref_class)
+        entry.set("value-ref", i.bean_name)
+
+    print(prettify(beans))
+    return prettify(beans)
 
 
 def main():
     current_dir = os.path.abspath(".")
-    generate_xml(get_java_bean_set(current_dir))
+    java_bean_set = get_java_bean_set(current_dir)
+    with open(os.path.join(current_dir, "spring.xml"), "w") as f:
+        f.write(generate_bean_xml(java_bean_set))
+        f.write(generate_list_bean_xml(java_bean_set))
+
 
 
 if __name__ == "__main__":
