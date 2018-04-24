@@ -39,8 +39,8 @@ def get_java_bean_set(source_dir):
                   if "Serializer.java" in file]
     java_bean_set = set([])
     re_prop = re.compile(
-        r"[\(\s]*([\w]+)[\)\s]+BeanUtils[\s\.]+ \
-        getBean[\(\s]+\"([\w] + )\"[\s]*\)")
+        r"[\(\s]*([\w]+)[\)\s]+BeanUtils[\s\.]+"
+        r"getBean[\(\s]+\"([\w]+)\"[\s]*\)")
     re_package = re.compile(r"^package\s(.+);$")
     for file_name in java_files:
         properties = {}
