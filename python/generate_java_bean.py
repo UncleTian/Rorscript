@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding=utf-8 -*-
-import csv
-from xml.etree.ElementTree import Element, SubElement, Comment
-from xml.etree.ElementTree import ElementTree
-from xml.etree import ElementTree
-from xml.dom import minidom
-from datetime import datetime
 import os
 import re
+from datetime import datetime
+from xml.dom import minidom
+from xml.etree import ElementTree
+from xml.etree.ElementTree import Element, SubElement, Comment
 
 
 class JavaBean(object):
