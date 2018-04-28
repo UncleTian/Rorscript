@@ -59,16 +59,16 @@ nnoremap U <C-r>
 
 " define AutoSetFileHeader "
 function! AutoSetFileHeader()
-		if &filetype == 'sh'
-				call setline(1, "\#!/bin/bash")
-	  elseif &filetype == 'python'
-			  call setline(1, "\#!/usr/bin/env python3")
-				call append(1, "\# encoding: utf-8")
-	  endif 
+	if &filetype == 'sh'
+		call setline(1, "\#!/bin/bash")
+	elseif &filetype == 'python'
+		call setline(1, "\#!/usr/bin/env python3")
+		call append(1, "\# encoding: utf-8")
+	endif 
 
-		normal G
-		normal o
-		normal o
+	normal G
+	normal o
+	normal o
 endfunction 
 autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHeader()"
 
@@ -85,46 +85,49 @@ autocmd FileType c,cpp,java,go,javascript,pupept,python,rust,xml,yml,perl autocm
 "press F5 run python"
 map <F5> :Autopep8<CR> :w<CR> :call RunPython()<CR>
 function RunPython()
-    let mp = &makeprg
-    let ef = &errorformat
-    let exeFile = expand("%:t")
-    setlocal makeprg=python\ -u
-    set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
-    silent make %
-    copen
-    let &makeprg = mp
-    let &errorformat = ef
+	let mp = &makeprg
+	let ef = &errorformat
+	let exeFile = expand("%:t")
+	setlocal makeprg=python\ -u
+	set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
+	silent make %
+	copen
+	let &makeprg = mp
+	let &errorformat = ef
 endfunction
 
 
+call plug#begin('~/.vim/plugged')
+
+Plug 'Valloric/YouCompleteMe'
+Plug 'Lokaltog/vim-powerline'
+Plug 'scrooloose/nerdtree'
+Plug 'Yggdroot/indentLine'
+Plug 'jiangmiao/auto-pairs'
+Plug 'tell-k/vim-autopep8'
+Plug 'scrooloose/nerdcommenter'
+Plug 'wakatime/vim-wakatime'
+Plug 'skielbasa/vim-material-monokai'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'google/vim-maktaba'
+Plug 'google/vim-codefmt'
+Plug 'google/vim-glaive'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'fatih/vim-go'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'w0rp/ale'
+call plug#end()
+
 filetype on
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'Lokaltog/vim-powerline'
-Plugin 'scrooloose/nerdtree'
-Plugin 'Yggdroot/indentLine'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'tell-k/vim-autopep8'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'wakatime/vim-wakatime'
-Plugin 'skielbasa/vim-material-monokai'
-Plugin 'octol/vim-cpp-enhanced-highlight'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'google/vim-maktaba'
-Plugin 'google/vim-codefmt'
-Plugin 'google/vim-glaive'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'Vimjas/vim-python-pep8-indent'
-call vundle#end()
 
 call glaive#Install()
 Glaive codefmt google_java_executable="java -jar /path/to/google-java-format-VERSION-all-deps.jar"
 
 
 "YouCompleteMe configuration"
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf=0
 set completeopt=longest,menu
 let g:ycm_python_binary_path='python'
@@ -140,6 +143,10 @@ let g:ycm_key_invoke_completion='<C-Space>'
 let g:ycm_enable_diagnostic_signs=1
 let g:ycm_enable_diagnostic_highlighting=1
 let g:ycm_always_populate_location_list=1
+let g:ycm_semantic_triggers =  {
+            \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+            \ 'cs,lua,javascript': ['re!\w{2}'],
+            \ }
 
 nmap <F3> :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
@@ -159,16 +166,16 @@ let NERDTreeAutoCenter=1
 let NERDTreeChristmasTree=1
 
 let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ "Unknown"   : "?"
-    \ }
+			\ "Modified"  : "✹",
+			\ "Staged"    : "✚",
+			\ "Untracked" : "✭",
+			\ "Renamed"   : "➜",
+			\ "Unmerged"  : "═",
+			\ "Deleted"   : "✖",
+			\ "Dirty"     : "✗",
+			\ "Clean"     : "✔︎",
+			\ "Unknown"   : "?"
+			\ }
 
 
 "autopep8 configuration"
@@ -189,13 +196,49 @@ nmap <silent> <Leader>i <Plug>IndentGuidesToggle
 
 "google format configuration"
 augroup autoformat_settings
-  autocmd FileType bzl AutoFormatBuffer buildifier
-  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
-  autocmd FileType dart AutoFormatBuffer dartfmt
-  autocmd FileType go AutoFormatBuffer gofmt
-  autocmd FileType gn AutoFormatBuffer gn
-  autocmd FileType html,css,json AutoFormatBuffer js-beautify
-  autocmd FileType java AutoFormatBuffer google-java-format
-  autocmd FileType python AutoFormatBuffer yapf
-  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
+	autocmd FileType bzl AutoFormatBuffer buildifier
+	autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+	autocmd FileType dart AutoFormatBuffer dartfmt
+	autocmd FileType go AutoFormatBuffer gofmt
+	autocmd FileType gn AutoFormatBuffer gn
+	autocmd FileType html,css,json AutoFormatBuffer js-beautify
+	autocmd FileType java AutoFormatBuffer google-java-format
+	autocmd FileType python AutoFormatBuffer yapf
+	" Alternative: autocmd FileType python AutoFormatBuffer autopep8
 augroup END
+
+
+" gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+ 
+" 所生成的数据文件的名称
+let g:gutentags_ctags_tagfile = '.tags'
+ 
+" 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+let s:vim_tags = expand('~/.cache/tags')
+let g:gutentags_cache_dir = s:vim_tags
+ 
+" 配置 ctags 的参数
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+ 
+" 检测 ~/.cache/tags 不存在就新建
+if !isdirectory(s:vim_tags)
+	    silent! call mkdir(s:vim_tags, 'p')
+endif
+
+" ale configuration'
+let g:ale_linters_explicit = 1
+let g:ale_completion_delay = 500
+let g:ale_echo_delay = 20
+let g:ale_lint_delay = 500
+let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+let g:airline#extensions#ale#enabled = 1
+ 
+let g:ale_c_gcc_options = '-Wall -O2 -std=c11'
+let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++11'
+let g:ale_c_cppcheck_options = ''
+let g:ale_cpp_cppcheck_options = ''
