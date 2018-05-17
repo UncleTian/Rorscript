@@ -13,8 +13,8 @@ nmap <Leader>p "+p
 "hide top tag"
 set showtabline=0
 "set font"
-set guifont=DejaVu_Sans_Mono:h14
-set guifont=DejaVu\ Sans\ Mono\ 14
+set guifont=Menlo:h14,DejaVu_Sans_Mono:h14
+set guifont=Menlo\ 14,DejaVu\ Sans\ Mono\ 14
 syntax on   "enable syntax"
 syntax enable
 set background=dark   "set background"
@@ -39,6 +39,7 @@ set enc=utf8
 set fencs=utf8,gbk,gb2312,gb18030      "file encoding"
 set encoding=utf-8
 set backspace=2
+set linespace=6
 set mouse=a     "enable mouse"
 set selection=exclusive
 set selectmode=mouse,key
@@ -119,7 +120,7 @@ Plug 'fatih/vim-go'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'w0rp/ale'
 Plug 'Yggdroot/LeaderF'
-
+Plug 'skywind3000/asyncrun.vim'
 call plug#end()
 
 filetype on
@@ -245,3 +246,8 @@ let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++11'
 let g:ale_c_cppcheck_options = ''
 let g:ale_cpp_cppcheck_options = ''
 
+" asyncrun configuration
+let g:asyncrun_open = 6
+nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
+nnoremap <slient> <F9> :AsyncRun gcc -Wall -02 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
+nnoremap <slient> <F8> :AsyncRun -raw -cwd=$(VIM_FILEPATH) $(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
