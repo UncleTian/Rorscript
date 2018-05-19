@@ -1,4 +1,6 @@
 "no compatible with vi"
+
+
 set nocompatible
 "show line"
 set number
@@ -61,26 +63,26 @@ nnoremap U <C-r>
 " define AutoSetFileHeader "
 function! AutoSetFileHeader()
 	if &filetype == 'sh'
-		call setline(1, "\#!/bin/bash")
+		:call setline(1, "\#!/bin/bash")
 	elseif &filetype == 'python'
-		call setline(1, "\#!/usr/bin/env python3")
-		call append(1, "\# encoding: utf-8")
+		:call setline(1, "\#!/usr/bin/env python3")
+		:call append(1, "\# encoding: utf-8")
 	endif 
 
 	normal G
 	normal o
 	normal o
 endfunction 
-autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHeader()"
+autocmd BufNewFile *.sh,*.py call AutoSetFileHeader()
 
 " auto remove space when save file "
-function! <SID>StripTrailingSpaces()
+function! <SID>stripTrailingSpaces()
 	let l = line(".")
 	let c = col(".")
 	%s/\s\+$//e
 	call cursor(l, c)
 endfunction
-autocmd FileType c,cpp,java,go,javascript,pupept,python,rust,xml,yml,perl autocmd BufWritePre <buffer> :call <SID>StripTrailingSpaces()
+autocmd FileType c,cpp,java,go,javascript,pupept,python,rust,xml,yml,perl autocmd BufWritePre <buffer> :call <SID>stripTrailingSpaces()
 
 
 "press F5 run python"
@@ -116,11 +118,11 @@ Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Vimjas/vim-python-pep8-indent'
-Plug 'fatih/vim-go'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'w0rp/ale'
 Plug 'Yggdroot/LeaderF'
 Plug 'skywind3000/asyncrun.vim'
+Plug 'derekwyatt/vim-scala'
 call plug#end()
 
 filetype on
@@ -249,5 +251,8 @@ let g:ale_cpp_cppcheck_options = ''
 " asyncrun configuration
 let g:asyncrun_open = 6
 nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
-nnoremap <slient> <F9> :AsyncRun gcc -Wall -02 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
+nnoremap <slient> <F9> :AsyncRun clang++ -Wall -02 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
 nnoremap <slient> <F8> :AsyncRun -raw -cwd=$(VIM_FILEPATH) $(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
+
+" this is a Scaladoc comment using the recommeded indentation.
+let g:scala_scaladoc_indent = 1
