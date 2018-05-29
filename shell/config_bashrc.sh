@@ -10,6 +10,6 @@ fi
 
 echo "add backup dir for rm."
 mkdir ~/.backup
-echo "alias rm='cp $@ ~/.backup && rm $@'" >> ~/.bashrc
+echo "alias rm='cp \$@ ~/.backup && rm \$@'" >> ~/.bashrc
 
-echo "prepend() { [ -d \"$2\"] && eval $1=\\\"%2':'\$$1\\\" && export $1; }" >> ~/.bashrc
+echo "prepend() { [ -d \"\$2\"] && eval \$1=\\\"\$2':'\$\$1\\\" && export \$1; }" >> ~/.bashrc
