@@ -9,6 +9,7 @@ from pathlib import Path
 from urllib.error import HTTPError
 from urllib.error import URLError
 from urllib.request import urlopen
+from socket import timeout
 
 from bs4 import BeautifulSoup
 
@@ -45,7 +46,7 @@ def get_topic(bs):
 
 async def get_image(link):
     try:
-        html1 = urlopen(link["href"], timeout=60)
+        html1 = urlopen(link["href"], timeout=10).read()
         print(link["href"])
         try:
             bs = BeautifulSoup(html1, "html.parser")
@@ -59,6 +60,8 @@ async def get_image(link):
             print(e)
     except (HTTPError, URLError) as e:
         print(e)
+    except timeout:
+        print(timeout)
 
 
 async def find_topic(html):
