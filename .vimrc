@@ -1,6 +1,4 @@
 "no compatible with vi"
-
-
 set nocompatible
 "show line"
 set number
@@ -60,21 +58,6 @@ set cmdheight=5
 " remap U to <C-r>"
 nnoremap U <C-r>
 
-" define AutoSetFileHeader "
-function! AutoSetFileHeader()
-	if &filetype == 'sh'
-		:call setline(1, "\#!/bin/bash")
-	elseif &filetype == 'python'
-		:call setline(1, "\#!/usr/bin/env python3")
-		:call append(1, "\# encoding: utf-8")
-	endif 
-
-	normal G
-	normal o
-	normal o
-endfunction 
-autocmd BufNewFile *.sh,*.py call AutoSetFileHeader()
-
 " auto remove space when save file "
 function! <SID>stripTrailingSpaces()
 	let l = line(".")
@@ -122,13 +105,16 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'w0rp/ale'
 Plug 'Yggdroot/LeaderF'
 Plug 'skywind3000/asyncrun.vim'
-Plug 'derekwyatt/vim-scala'
+Plug 'aperezdc/vim-template'
 call plug#end()
 
 filetype on
 
 call glaive#Install()
 Glaive codefmt google_java_executable="java -jar /path/to/google-java-format-VERSION-all-deps.jar"
+
+
+autocmd FileType python nnoremap <LocalLeader>i :!isort %<CR><CR>
 
 
 "YouCompleteMe configuration"
@@ -254,5 +240,6 @@ nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
 nnoremap <slient> <F9> :AsyncRun clang++ -Wall -02 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
 nnoremap <slient> <F8> :AsyncRun -raw -cwd=$(VIM_FILEPATH) $(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
 
-" this is a Scaladoc comment using the recommeded indentation.
-let g:scala_scaladoc_indent = 1
+" vim-template configuration
+let g:username = 'Rorschach H.'
+let g:email = 'yiming.whz@gmail.com'
