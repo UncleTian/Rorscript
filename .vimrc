@@ -69,19 +69,6 @@ autocmd FileType c,cpp,java,go,javascript,pupept,python,rust,xml,yml,perl autocm
 
 
 "press F5 run python"
-map <F5> :Autopep8<CR> :w<CR> :call RunPython()<CR>
-function RunPython()
-	let mp = &makeprg
-	let ef = &errorformat
-	let exeFile = expand("%:t")
-	setlocal makeprg=python\ -u
-	set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
-	silent make %
-	copen
-	let &makeprg = mp
-	let &errorformat = ef
-endfunction
-
 
 call plug#begin('~/.vim/plugged')
 
@@ -90,7 +77,6 @@ Plug 'Lokaltog/vim-powerline'
 Plug 'scrooloose/nerdtree'
 Plug 'Yggdroot/indentLine'
 Plug 'jiangmiao/auto-pairs'
-Plug 'tell-k/vim-autopep8'
 Plug 'scrooloose/nerdcommenter'
 Plug 'wakatime/vim-wakatime'
 Plug 'skielbasa/vim-material-monokai'
@@ -112,7 +98,6 @@ filetype on
 
 call glaive#Install()
 Glaive codefmt google_java_executable="java -jar /path/to/google-java-format-VERSION-all-deps.jar"
-
 
 autocmd FileType python nnoremap <LocalLeader>i :!isort %<CR><CR>
 
@@ -194,8 +179,7 @@ augroup autoformat_settings
 	autocmd FileType gn AutoFormatBuffer gn
 	autocmd FileType html,css,json AutoFormatBuffer js-beautify
 	autocmd FileType java AutoFormatBuffer google-java-format
-	autocmd FileType python AutoFormatBuffer yapf
-	" Alternative: autocmd FileType python AutoFormatBuffer autopep8
+	autocmd FileType python AutoFormatBuffer yapf 
 augroup END
 
 
@@ -235,6 +219,29 @@ let g:ale_c_cppcheck_options = ''
 let g:ale_cpp_cppcheck_options = ''
 
 " asyncrun configuration
+nnoremap ,r :call <SID>compile_and_run()<CR>
+
+map <F5> :call <SID>RunPython()<CR>
+function! s:compile_and_run()
+	exec 'w'
+	exec 'vertical rightbelow copen 80'
+  exec 'wincmd w'
+  if &filetype ==# 'c'
+		exec 'AsyncRun! gcc % -o %<; time ./%<'
+  elseif &filetype ==# 'cpp'
+    exec 'AsyncRun! g++ -std=c++11 % -o %<; time ./%<'
+  elseif &filetype ==# 'rust'
+    exec 'AsyncRun! rustc %; time ./%<'
+  elseif &filetype ==# 'java'
+    exec 'AsyncRun! javac %; time java %<; rm -f *.class'
+  elseif &filetype ==# 'sh'
+    exec 'AsyncRun! time bash %'
+  elseif &filetype ==# 'python'
+    exec 'AsyncRun! time python3 "%"'
+  elseif &filetype ==# 'javascript'
+    exec 'AsyncRun! time node %'
+  endif
+endfunction
 let g:asyncrun_open = 6
 nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
 nnoremap <slient> <F9> :AsyncRun clang++ -Wall -02 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>

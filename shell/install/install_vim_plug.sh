@@ -1,8 +1,9 @@
 #!/bin/bash
 
+result=`which curl`
 
-if -z which curl 
-then``
+if [[ -z $result ]]; 
+then
 	if cat /etc/*-release | grep debian
 	then
 		sudo apt update
