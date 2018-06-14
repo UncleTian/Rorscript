@@ -219,9 +219,7 @@ let g:ale_c_cppcheck_options = ''
 let g:ale_cpp_cppcheck_options = ''
 
 " asyncrun configuration
-nnoremap ,r :call <SID>compile_and_run()<CR>
 
-map <F5> :call <SID>RunPython()<CR>
 function! s:compile_and_run()
 	exec 'w'
 	exec 'vertical rightbelow copen 80'
@@ -242,7 +240,8 @@ function! s:compile_and_run()
     exec 'AsyncRun! time node %'
   endif
 endfunction
-let g:asyncrun_open = 6
+nnoremap <F5> :call <SID>compile_and_run()<CR>
+" let g:asyncrun_open = 6
 nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
 nnoremap <slient> <F9> :AsyncRun clang++ -Wall -02 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
 nnoremap <slient> <F8> :AsyncRun -raw -cwd=$(VIM_FILEPATH) $(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
@@ -250,3 +249,4 @@ nnoremap <slient> <F8> :AsyncRun -raw -cwd=$(VIM_FILEPATH) $(VIM_FILEDIR)/$(VIM_
 " vim-template configuration
 let g:username = 'Rorschach H.'
 let g:email = 'yiming.whz@gmail.com'
+
