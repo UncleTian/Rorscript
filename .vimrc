@@ -57,6 +57,8 @@ set nu
 set cmdheight=5
 " remap U to <C-r>"
 nnoremap U <C-r>
+"clear highlights on hitting esc twice."   
+nnoremap <esc><esc> :noh<return>
 
 " auto remove space when save file "
 function! <SID>stripTrailingSpaces()
@@ -179,7 +181,7 @@ augroup autoformat_settings
 	autocmd FileType gn AutoFormatBuffer gn
 	autocmd FileType html,css,json AutoFormatBuffer js-beautify
 	autocmd FileType java AutoFormatBuffer google-java-format
-	autocmd FileType python AutoFormatBuffer yapf 
+	autocmd FileType python AutoFormatBuffer yapf
 augroup END
 
 
