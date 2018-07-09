@@ -30,6 +30,7 @@ set expandtab
 set tabstop=2   "set tab size 2"
 set shiftwidth=2
 set softtabstop=2
+set history=200
 
 set showmatch   "show match parentheses"
 set scrolloff=5     "5 rows from the top and bottom"
@@ -55,6 +56,11 @@ set cursorline      " highlight current line"
 set cursorcolumn        "highlight current column"
 set nu
 set cmdheight=5
+
+nnoremap <silent> [b :bprevious<CR>
+nnoremap <silent> ]b :bnext<CR>
+nnoremap <silent> [B :bfirst<CR>
+nnoremap <silent> ]B :blast<CR>
 " remap U to <C-r>"
 nnoremap U <C-r>
 "clear highlights on hitting esc twice."   
@@ -94,6 +100,7 @@ Plug 'w0rp/ale'
 Plug 'Yggdroot/LeaderF'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'aperezdc/vim-template'
+Plug 'fatih/vim-go'
 call plug#end()
 
 filetype on
