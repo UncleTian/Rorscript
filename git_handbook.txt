@@ -59,7 +59,7 @@ git reset HEAD file_name file_path
 git reset HEAD .
 
 # reset current branch to any commit hash
-git rest --hard 39ea21a
+git reset --hard 39ea21a
 
 # saving current state of tracked files without commiting
 git stash
