@@ -15,11 +15,15 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 	sudo apt update
 	sudo apt install zsh
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	chsh -s `which zsh`
 fi
 
-bash -c zsh
+echo "bash -c zsh" >> ~./bashrc
+
 echo "Install zsh-syntax-hightlighting"
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+sed -i "s/  git/  git zsh-syntax-highlighting/" ~.zshrc
+
 
 echo "Add backup dir for rm."
 mkdir -p ~/.mytrash
@@ -39,3 +43,5 @@ echo -e "QT_HOMEBREW=true" >> ~/.zshrc
 
 echo -e "alias go='http_proxy=http://127.0.0.1:3213/ https_proxy=http://127.0.0.1:3213/ no_proxy=localhost,127.0.0.0/8,::1 go'" >> ~/.zshrc
 
+source .bashrc
+source .zshrc
