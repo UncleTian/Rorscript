@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 # if [ $UID -ne 0 ]; 
 # then
@@ -8,7 +8,20 @@
 # 	echo "Root user."
 # fi
 
-echo "add backup dir for rm."
+if [ "$(uname)" == "Darwin" ]; then
+	brew install zsh
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+	sudo apt update
+	sudo apt install zsh
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+fi
+
+bash -c zsh
+echo "Install zsh-syntax-hightlighting"
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+echo "Add backup dir for rm."
 mkdir -p ~/.mytrash
 
 echo "alias rm=movetotrash" >> ~/.zshrc
