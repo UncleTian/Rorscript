@@ -7,32 +7,33 @@
 # else 
 # 	echo "Root user."
 # fi
-
-if [ "$(uname)" == "Darwin" ]; then
-	brew install zsh
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-	sudo apt update
-	sudo apt install zsh
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-	chsh -s `which zsh`
+if [ -e "$(which zsh)" ]; then
+	if [ "$(uname)" == "Darwin" ]; then
+		brew install zsh
+		sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+		echo "bash -c zsh" >> ~./bash_profile
+	elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+		sudo apt update
+		sudo apt install zsh
+		sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+		chsh -s `which zsh`
+		echo "bash -c zsh" >> ~./bashrc
+	fi
 fi
-
-echo "bash -c zsh" >> ~./bashrc
 
 echo "Install zsh-syntax-hightlighting"
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-sed -i "s/  git/  git zsh-syntax-highlighting/" ~.zshrc
+sed -i "s/  git/  git zsh-syntax-highlighting/" ~/.zshrc
 
 
 echo "Add backup dir for rm."
-mkdir -p ~/.mytrash
+mkdir -p ~/.trash/
 
 echo "alias rm=movetotrash" >> ~/.zshrc
 echo "alias urm=unrmfile" >> ~/.zshrc
 echo -e "alias cltrash=cleartrash\n" >> ~/.zshrc
-echo -e "movetotrash() {\n\tmv \$@ ~/.mytrash/ \n}\n" >> ~/.zshrc
-echo -e "unrmfile() {\n\tmv -i ~/.mytrash/\$@ ./ \n}\n" >> ~/.zshrc
+echo -e "movetotrash() {\n\tmv \$@ ~/.trash/ \n}\n" >> ~/.zshrc
+echo -e "unrmfile() {\n\tmv -i ~/.trash/\$@ ./ \n}\n" >> ~/.zshrc
 echo -e "cleartrash() {\n\tread -p \"Clear trash?(Y/n)\" confirm\n\tconfirm=\${confirm,,}\n\t[ \$confirm == 'y' ] && /usr/bin/rm -rf ~/.trash/\*\n}\n" >> ~/.zshrc
 
 echo -e "prepend() {\n\t [ -d \"\$2\"] && eval \$1=\\\"\$2':'\$\$1\\\" && export \$1; \n}\n" >> ~/.zshrc
@@ -43,5 +44,5 @@ echo -e "QT_HOMEBREW=true" >> ~/.zshrc
 
 echo -e "alias go='http_proxy=http://127.0.0.1:3213/ https_proxy=http://127.0.0.1:3213/ no_proxy=localhost,127.0.0.0/8,::1 go'" >> ~/.zshrc
 
-source .bashrc
-source .zshrc
+source ~/.bashrc
+source ~/.zshrc
