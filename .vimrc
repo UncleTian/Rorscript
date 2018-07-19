@@ -2,8 +2,8 @@
 set nocompatible
 "show line"
 set number
-" hide scroll"    
-set guioptions-=r 
+" hide scroll"
+set guioptions-=r
 set guioptions-=L
 set guioptions-=b
 
@@ -26,7 +26,7 @@ set cindent     "indenct like C"
 set autoindent
 filetype indent on
 filetype plugin on
-set expandtab 
+set expandtab
 set tabstop=2   "set tab size 2"
 set shiftwidth=2
 set softtabstop=2
@@ -63,7 +63,7 @@ nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> ]B :blast<CR>
 " remap U to <C-r>"
 nnoremap U <C-r>
-"clear highlights on hitting esc twice."   
+"clear highlights on hitting esc twice."
 nnoremap <esc><esc> :noh<return>
 
 " auto remove space when save file "
@@ -99,8 +99,8 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'w0rp/ale'
 Plug 'Yggdroot/LeaderF'
 Plug 'skywind3000/asyncrun.vim'
-Plug 'aperezdc/vim-template'
 Plug 'fatih/vim-go'
+Plug 'ntpeters/vim-better-whitespace'
 call plug#end()
 
 filetype on
@@ -247,6 +247,8 @@ function! s:compile_and_run()
     exec 'AsyncRun! time python3 "%"'
   elseif &filetype ==# 'javascript'
     exec 'AsyncRun! time node %'
+  elseif &filetype ==# 'go'
+    exec 'AsyncRun! time go run %'
   endif
 endfunction
 nnoremap <F5> :call <SID>compile_and_run()<CR>
@@ -255,7 +257,5 @@ nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
 nnoremap <slient> <F9> :AsyncRun clang++ -Wall -02 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
 nnoremap <slient> <F8> :AsyncRun -raw -cwd=$(VIM_FILEPATH) $(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
 
-" vim-template configuration
-let g:username = 'Rorschach H.'
-let g:email = 'yiming.whz@gmail.com'
-
+let g:better_whitespace_enable=1
+let g:strip_whitespace_on_save=1
