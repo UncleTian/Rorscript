@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 # run as root 
 # Changed code to remove the 'head -1' as per the suggestion in comment.
-JAVA_VERSION=`java -version 2>&1 |awk 'NR==1{ gsub(/"/,""); print $3 }'`
+JAVA_VERSION=`java -version 2>&1 | awk 'NR==1{ gsub(/"/,""); print $3 }'`
 # export JAVA_VERSION
 echo $JAVA_VERSION
 echo 'jdk'$JAVA_VERSION'.jdk'

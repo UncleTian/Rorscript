@@ -81,26 +81,23 @@ autocmd FileType c,cpp,java,go,javascript,pupept,python,rust,xml,yml,perl autocm
 call plug#begin('~/.vim/plugged')
 
 Plug 'Valloric/YouCompleteMe'
-Plug 'Lokaltog/vim-powerline'
 Plug 'scrooloose/nerdtree'
 Plug 'Yggdroot/indentLine'
-Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdcommenter'
 Plug 'wakatime/vim-wakatime'
 Plug 'skielbasa/vim-material-monokai'
 Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'nathanaelkane/vim-indent-guides'
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'w0rp/ale'
 Plug 'Yggdroot/LeaderF'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'fatih/vim-go'
 Plug 'ntpeters/vim-better-whitespace'
+Plug 'rust-lang/rust.vim'
 call plug#end()
 
 filetype on
@@ -212,21 +209,6 @@ if !isdirectory(s:vim_tags)
 	    silent! call mkdir(s:vim_tags, 'p')
 endif
 
-" ale configuration'
-let g:ale_linters_explicit = 1
-let g:ale_completion_delay = 500
-let g:ale_echo_delay = 20
-let g:ale_lint_delay = 500
-let g:ale_echo_msg_format = '[%linter%] %code: %%s'
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
-let g:airline#extensions#ale#enabled = 1
-
-let g:ale_c_gcc_options = '-Wall -O2 -std=c11'
-let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++11'
-let g:ale_c_cppcheck_options = ''
-let g:ale_cpp_cppcheck_options = ''
-
 " asyncrun configuration
 
 function! s:compile_and_run()
@@ -259,3 +241,23 @@ nnoremap <slient> <F8> :AsyncRun -raw -cwd=$(VIM_FILEPATH) $(VIM_FILEDIR)/$(VIM_
 
 let g:better_whitespace_enable=1
 let g:strip_whitespace_on_save=1
+
+" indentLine config
+set list lcs=tab:\|\
+let g:indentLine_enabled = 1
+" Vim
+let g:indentLine_color_term = 239
+
+" GVim
+let g:indentLine_color_gui = '#A4E57E'
+
+" none X terminal
+let g:indentLine_color_tty_light = 7 " (default: 4)
+let g:indentLine_color_dark = 1 " (default: 2)
+
+" Background (Vim, GVim)
+let g:indentLine_bgcolor_term = 202
+let g:indentLine_bgcolor_gui = '#FF5F00'
+let g:indentLine_char = '¦'
+
+let g:rustfmt_autosave = 1
