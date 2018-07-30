@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# if [ $UID -ne 0 ]; 
+# if [ $UID -ne 0 ];
 # then
 # 	echo "Not root user. Please run as root."
 # 	exit
-# else 
+# else
 # 	echo "Root user."
 # fi
-if [ -e "$(which zsh)" ]; then
+if [ -z "$(which zsh)" ]; then
 	if [ "$(uname)" == "Darwin" ]; then
 		brew install zsh
 		sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -23,7 +23,7 @@ fi
 
 echo "Install zsh-syntax-hightlighting"
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-sed -i "s/  git/  git zsh-syntax-highlighting/" ~/.zshrc
+sed -i "s/  git/\n  git zsh-syntax-highlighting/" ~/.zshrc
 
 
 # echo "Add backup dir for rm."
@@ -37,7 +37,7 @@ sed -i "s/  git/  git zsh-syntax-highlighting/" ~/.zshrc
 # echo -e "cleartrash() {\n\tread -p \"Clear trash?(Y/n)\" confirm\n\tconfirm=\${confirm,,}\n\t[ \$confirm == 'y' ] && /usr/bin/rm -rf ~/.trash/\*\n}\n" >> ~/.zshrc
 
 # echo -e "prepend() {\n\t [ -d \"\$2\"] && eval \$1=\\\"\$2':'\$\$1\\\" && export \$1; \n}\n" >> ~/.zshrc
-# 
+#
 # echo -e "export PATH=/usr/local/go/bin:$PATH" >> ~/.zshrc
 # echo -e "export GOPATH=$HOME/go" >> ~/.zshrc
 # echo -e "QT_HOMEBREW=true" >> ~/.zshrc

@@ -90,6 +90,7 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
+Plug 'jiangmiao/auto-pairs'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'ludovicchabant/vim-gutentags'
@@ -146,6 +147,7 @@ let NERDTreeShowHidden=0
 let NERDTreeHightCursorline=1
 let NERDTreeAutoCenter=1
 let NERDTreeChristmasTree=1
+let NERDTreeMapOpenInTab='<ENTER>'
 
 let g:NERDTreeIndicatorMapCustom = {
 			\ "Modified"  : "✹",
@@ -243,21 +245,7 @@ let g:better_whitespace_enable=1
 let g:strip_whitespace_on_save=1
 
 " indentLine config
-set list lcs=tab:\|\
 let g:indentLine_enabled = 1
-" Vim
-let g:indentLine_color_term = 239
-
-" GVim
-let g:indentLine_color_gui = '#A4E57E'
-
-" none X terminal
-let g:indentLine_color_tty_light = 7 " (default: 4)
-let g:indentLine_color_dark = 1 " (default: 2)
-
-" Background (Vim, GVim)
-let g:indentLine_bgcolor_term = 202
-let g:indentLine_bgcolor_gui = '#FF5F00'
 let g:indentLine_char = '¦'
 
 let g:rustfmt_autosave = 1
